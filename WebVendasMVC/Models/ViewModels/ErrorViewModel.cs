@@ -1,11 +1,11 @@
 using System;
 
-namespace WebVendasMVC.Models
+namespace WebVendasMVC.Models.ViewModels
 {
     public class ErrorViewModel
     {
         public string RequestId { get; set; }
-
+        
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }
