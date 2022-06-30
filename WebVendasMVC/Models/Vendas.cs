@@ -13,17 +13,17 @@ namespace WebVendasMVC.Models
         public DateTime Data_Venda { get; set; }
         public double ValVendas   { get; set; }
         public StatusVendas Status { get; set; }
-        public Venderores Venderores { get; set; }
+        public Vendedores Vendedores { get; set; }
 
         public Vendas() { }
 
-        public Vendas(int iD, DateTime data_Venda, double valvendas, StatusVendas status, Venderores venderores)
+        public Vendas(int iD, DateTime data_Venda, double valvendas, StatusVendas status, Vendedores venderores)
         {
             ID = iD;
             Data_Venda = data_Venda;
             ValVendas = valvendas;
             Status = status;
-            Venderores = venderores;
+            Vendedores = venderores;
         }
 
     }

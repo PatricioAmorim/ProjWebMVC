@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebVendasMVC.Migrations
 {
-    public partial class AddEntidades : Migration
+    public partial class AddEntidade_v : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Venderores",
+                name: "Vendedores",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -22,9 +22,9 @@ namespace WebVendasMVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Venderores", x => x.Id);
+                    table.PrimaryKey("PK_Vendedores", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Venderores_Department_DepartmentId",
+                        name: "FK_Vendedores_Department_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Department",
                         principalColumn: "Id",
@@ -40,27 +40,27 @@ namespace WebVendasMVC.Migrations
                     Data_Venda = table.Column<DateTime>(nullable: false),
                     ValVendas = table.Column<double>(nullable: false),
                     Status = table.Column<int>(nullable: false),
-                    VenderoresId = table.Column<int>(nullable: true)
+                    VendedoresId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Vendas", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Vendas_Venderores_VenderoresId",
-                        column: x => x.VenderoresId,
-                        principalTable: "Venderores",
+                        name: "FK_Vendas_Vendedores_VendedoresId",
+                        column: x => x.VendedoresId,
+                        principalTable: "Vendedores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vendas_VenderoresId",
+                name: "IX_Vendas_VendedoresId",
                 table: "Vendas",
-                column: "VenderoresId");
+                column: "VendedoresId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Venderores_DepartmentId",
-                table: "Venderores",
+                name: "IX_Vendedores_DepartmentId",
+                table: "Vendedores",
                 column: "DepartmentId");
         }
 
@@ -70,7 +70,7 @@ namespace WebVendasMVC.Migrations
                 name: "Vendas");
 
             migrationBuilder.DropTable(
-                name: "Venderores");
+                name: "Vendedores");
         }
     }
 }

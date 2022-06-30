@@ -1,8 +1,34 @@
-﻿@{
-    ViewData["Title"] = "Index";
+﻿@model IEnumerable<WebVendasMVC.Models.Vendedores> 
+
+@{
+    ViewData["Title"] = "Vendedores";
 }
 
-<h2>Vendedores</h2>
+<h2>@ViewData["Title"]</h2>
 
-<p>Pagina de Vendedores </p>
+
+
+<table class="Table table-striped table-hover">
+    <thead>
+        <tr class="success">
+            <th>@Html.DisplayNameFor(model => model.Name)</th> 
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.DisplayNameFor(model => model.Dt_aniversario)</th>
+            <th>@Html.DisplayNameFor(model => model.SalarioBase)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var item in Model)
+         {
+             <tr>
+                 <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                 <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                 <td>@Html.DisplayFor(modelItem => item.Dt_aniversario)</td>
+                 <td>@Html.DisplayFor(modelItem => item.SalarioBase)</td>
+             </tr>
+         }
+    </tbody>
+
+</table>
 

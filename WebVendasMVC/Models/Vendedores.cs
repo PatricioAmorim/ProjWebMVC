@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebVendasMVC.Models
 {
-    public class Venderores
+    public class Vendedores
     {
 
         public int Id { get; set; }
@@ -17,13 +17,9 @@ namespace WebVendasMVC.Models
 
         public ICollection<Vendas> listaVendas { get; set; } = new List<Vendas>();
 
+        public Vendedores() { }
 
-        public Venderores()
-        {
-
-        }
-
-        public Venderores(int id, string name, string email, DateTime dt_aniversario, double salarioBase, Department department)
+        public Vendedores(int id, string name, string email, DateTime dt_aniversario, double salarioBase, Department department)
         {
             Id = id;
             Name = name;

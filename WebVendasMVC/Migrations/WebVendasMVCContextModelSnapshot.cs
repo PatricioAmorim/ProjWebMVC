@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebVendasMVC.Data;
+using WebVendasMVC.Models;
 
 namespace WebVendasMVC.Migrations
 {
@@ -40,16 +40,16 @@ namespace WebVendasMVC.Migrations
 
                     b.Property<double>("ValVendas");
 
-                    b.Property<int?>("VenderoresId");
+                    b.Property<int?>("VendedoresId");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("VenderoresId");
+                    b.HasIndex("VendedoresId");
 
                     b.ToTable("Vendas");
                 });
 
-            modelBuilder.Entity("WebVendasMVC.Models.Venderores", b =>
+            modelBuilder.Entity("WebVendasMVC.Models.Vendedores", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -68,20 +68,20 @@ namespace WebVendasMVC.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Venderores");
+                    b.ToTable("Vendedores");
                 });
 
             modelBuilder.Entity("WebVendasMVC.Models.Vendas", b =>
                 {
-                    b.HasOne("WebVendasMVC.Models.Venderores", "Venderores")
+                    b.HasOne("WebVendasMVC.Models.Vendedores", "Vendedores")
                         .WithMany("listaVendas")
-                        .HasForeignKey("VenderoresId");
+                        .HasForeignKey("VendedoresId");
                 });
 
-            modelBuilder.Entity("WebVendasMVC.Models.Venderores", b =>
+            modelBuilder.Entity("WebVendasMVC.Models.Vendedores", b =>
                 {
                     b.HasOne("WebVendasMVC.Models.Department", "Department")
-                        .WithMany("venderores")
+                        .WithMany("vendedores")
                         .HasForeignKey("DepartmentId");
                 });
 #pragma warning restore 612, 618

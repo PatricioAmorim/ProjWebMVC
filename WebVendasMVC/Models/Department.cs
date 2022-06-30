@@ -10,7 +10,7 @@ namespace WebVendasMVC.Models
 
         public int Id { get; set; }
         public string Nome { get; set; }
-        public ICollection<Venderores> venderores { get; set; } = new List<Venderores>();
+        public ICollection<Vendedores> vendedores { get; set; } = new List<Vendedores>();
 
 
         public Department()
@@ -24,15 +24,15 @@ namespace WebVendasMVC.Models
             Nome = nome;
         }
 
-        public void AddVendedor(Venderores venderor)
+        public void AddVendedor(Vendedores venderor)
         {
-            venderores.Add(venderor);
+            vendedores.Add(venderor);
         }
 
         public double TotalVendas(DateTime dt_inicio, DateTime dt_fim)
         {
 
-            return venderores.Sum(vendedor => vendedor.TotalVendas(dt_inicio, dt_fim));
+            return vendedores.Sum(vendedor => vendedor.TotalVendas(dt_inicio, dt_fim));
 
         }
     }

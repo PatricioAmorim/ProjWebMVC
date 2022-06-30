@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebVendasMVC.Data;
+//using WebVendasMVC.Data;
+using WebVendasMVC.Models;
 
 namespace WebVendasMVC.Migrations
 {
