@@ -1,0 +1,49 @@
+﻿@model WebVendasMVC.Models.Vendedores;
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+                                    
+<h2>@ViewData["Title"]</h2>
+
+
+<h4>Vendedores</h4>
+
+<hr />
+
+<div class="row"> <!--classe Row serve para garanti que uma linha oculpe o tamanho completo da tela-->
+
+    <div class="col-lg-4"> <!--Col-lg-4 define que o formulario ocupe 1/3 da tela, sendo o o BootStrap diveide a tela em 12 parts-->
+        <form asp-action="Create">
+            <div class="form-group">
+                <!-- Classe form group utilizada para organização do formulario-->
+                <label asp-for="Name" class="control-label">Nome</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Name" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <!-- Classe form group utilizada para organização do formulario-->
+                <label asp-for="Email" class="control-label">E-mail</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Email" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <!-- Classe form group utilizada para organização do formulario-->
+                <label asp-for="Dt_aniversario" class="control-label">Data de Aniversário</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Dt_aniversario" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <!-- Classe form group utilizada para organização do formulario-->
+                <label asp-for="SalarioBase" class="control-label">Salário</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Name" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-default"/>
+            </div>
+        </form>
+    </div>
+</div>
+

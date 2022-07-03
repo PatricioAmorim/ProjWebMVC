@@ -43,5 +43,8 @@ namespace WebVendasMVC.Models
         {
             return listaVendas.Where(vd => vd.Data_Venda >= DataInicio && vd.Data_Venda <= DataFim).Sum(vd => vd.ValVendas);
         }
+
+
     }
+
 }
