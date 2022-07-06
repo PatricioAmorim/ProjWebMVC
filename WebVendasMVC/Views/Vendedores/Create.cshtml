@@ -1,4 +1,4 @@
-﻿@model WebVendasMVC.Models.Vendedores;
+﻿@model WebVendasMVC.Models.ViewModels.VendedorFormViewModel;
 
 @{
     ViewData["Title"] = "Create";
@@ -18,30 +18,37 @@
         <form asp-action="Create">
             <div class="form-group">
                 <!-- Classe form group utilizada para organização do formulario-->
-                <label asp-for="Name" class="control-label">Nome</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Vendedores.Name" class="control-label">Nome</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Vendedores.Name" class="form-control" />
             </div>
 
             <div class="form-group">
                 <!-- Classe form group utilizada para organização do formulario-->
-                <label asp-for="Email" class="control-label">E-mail</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Vendedores.Email" class="control-label">E-mail</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Vendedores.Email" class="form-control" />
             </div>
 
             <div class="form-group">
                 <!-- Classe form group utilizada para organização do formulario-->
-                <label asp-for="Dt_aniversario" class="control-label">Data de Aniversário</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
-                <input asp-for="Dt_aniversario" class="form-control" />
+                <label asp-for="Vendedores.Dt_aniversario" class="control-label">Data de Aniversário</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Vendedores.Dt_aniversario" class="form-control" />
             </div>
 
             <div class="form-group">
                 <!-- Classe form group utilizada para organização do formulario-->
-                <label asp-for="SalarioBase" class="control-label">Salário</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Vendedores.SalarioBase" class="control-label">Salário</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Vendedores.SalarioBase" class="form-control" />
+            </div>
+
+            <div class="form-group">     
+            <label asp-for="Vendedores.DepartmentId" class="control-label"></label>     
+            <select asp-for="Vendedores.DepartmentId" 
+                    asp-items="@(new SelectList(Model.Departments,"Id", "Name"))" class="form-control"></select> 
+
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-default"/>
+                <input type="submit" value="Salvar" class="btn btn-default" />
             </div>
         </form>
     </div>

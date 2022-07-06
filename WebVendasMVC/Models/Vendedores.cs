@@ -13,6 +13,7 @@ namespace WebVendasMVC.Models
         public string Email { get; set; }
         public DateTime Dt_aniversario { get; set; }
         public double SalarioBase { get; set; }
+        public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
         public ICollection<Vendas> listaVendas { get; set; } = new List<Vendas>();
