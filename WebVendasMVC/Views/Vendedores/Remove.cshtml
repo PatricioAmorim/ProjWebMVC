@@ -1,0 +1,43 @@
+﻿@model WebVendasMVC.Models.Vendedores;
+
+
+@{
+    ViewData["Title"] = "Remove";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<h3> Deseja deletar o Vendedor? </h3>
+
+<div>
+
+    <h4>Vendedor </h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Dt_aniversario)</dt>
+        <dd>@Html.DisplayFor(model => model.Dt_aniversario)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.SalarioBase)</dt>
+        <dd>@Html.DisplayFor(model => model.SalarioBase)</dd>
+
+    </dl>
+
+    <form asp-action="Remove">
+
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+
+        <a asp-action="Index">Voltar á lista</a>
+    </form>
+
+</div>
+

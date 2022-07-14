@@ -50,6 +50,32 @@ namespace WebVendasMVC.Controllers
 
         }
 
+        public IActionResult Remove(int? id)
+        {
+            if(id == null)
+            {
+
+                return NotFound();
+
+            }
+
+            var obj = _vendedorSevices.FindById(id.Value);
+
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost][ValidateAntiForgeryToken]
+        public IActionResult Remove(int id)
+        {
+            _vendedorSevices.Remover(id);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 
 }

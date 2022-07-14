@@ -42,8 +42,8 @@
 
             <div class="form-group">     
             <label asp-for="Vendedores.DepartmentId" class="control-label"></label>     
-            <select asp-for="Vendedores.DepartmentId" 
-                    asp-items="@(new SelectList(Model.Departments,"Id", "Name"))" class="form-control"></select> 
+                <select asp-for="Vendedores.DepartmentId" 
+                        asp-items="@(new SelectList(Model.Departments,"Id", "Nome"))" class="form-control"></select> 
 
             </div>
 
