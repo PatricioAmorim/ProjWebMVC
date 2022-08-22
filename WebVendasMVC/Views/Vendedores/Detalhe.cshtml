@@ -1,0 +1,36 @@
+﻿@model WebVendasMVC.Models.Vendedores
+
+@{
+    ViewData["Title"] = "Detalhe";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <dl class="dl-horizontal">
+
+        <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Dt_aniversario)</dt>
+        <dd>@Html.DisplayFor(model => model.Dt_aniversario)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.SalarioBase)</dt>
+        <dd>@Html.DisplayFor(model => model.SalarioBase)</dd>
+
+        <dt style="color:chartreuse">@Html.DisplayNameFor(model => model.Department)</dt>
+        <dd>@Html.DisplayFor(model => model.Department.Nome)</dd>
+
+    </dl>
+
+</div>
+
+<div>
+
+    <a asp-action="Edit" asp-route-id="@Model-id">Edit</a>
+    <a asp-action="Index">Voltar</a>
+
+</div>

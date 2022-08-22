@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebVendasMVC.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebVendasMVC.Services
 {
@@ -33,8 +34,8 @@ namespace WebVendasMVC.Services
 
         public Vendedores FindById(int id)
         {
-
-            return _context.Vendedores.FirstOrDefault(obj => obj.Id == id);
+            // Include utilizado como Join entre as tabelas das consultas
+            return _context.Vendedores.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
         }
 
 
