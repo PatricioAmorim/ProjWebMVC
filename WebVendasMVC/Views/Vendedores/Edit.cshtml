@@ -1,0 +1,59 @@
+﻿@model WebVendasMVC.Models.ViewModels.VendedorFormViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Vendedores</h4>
+
+<hr />
+
+<div class="row">
+    <!--classe Row serve para garanti que uma linha oculpe o tamanho completo da tela-->
+
+    <div class="col-lg-4">
+        <!--Col-lg-4 define que o formulario ocupe 1/3 da tela, sendo o o BootStrap diveide a tela em 12 parts-->
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Vendedores.Id" />
+
+            <div class="form-group">
+                <!-- Classe form group utilizada para organização do formulario-->
+                <label asp-for="Vendedores.Name" class="control-label">Nome</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Vendedores.Name" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <!-- Classe form group utilizada para organização do formulario-->
+                <label asp-for="Vendedores.Email" class="control-label">E-mail</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Vendedores.Email" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <!-- Classe form group utilizada para organização do formulario-->
+                <label asp-for="Vendedores.Dt_aniversario" class="control-label">Data de Aniversário</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Vendedores.Dt_aniversario" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <!-- Classe form group utilizada para organização do formulario-->
+                <label asp-for="Vendedores.SalarioBase" class="control-label">Salário</label> <!--Tag Helper asp_for utilizado para definir o label que ira aparecer na caixinha para digitar-->
+                <input asp-for="Vendedores.SalarioBase" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Vendedores.DepartmentId" class="control-label"></label>
+                <select asp-for="Vendedores.DepartmentId"
+                        asp-items="@(new SelectList(Model.Departments,"Id", "Nome"))" class="form-control"></select>
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+                
+                <a asp-action="Index"> Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>

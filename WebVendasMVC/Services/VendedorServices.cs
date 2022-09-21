@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebVendasMVC.Models;
 using Microsoft.EntityFrameworkCore;
+using WebVendasMVC.Services.Exceptions;
 
 namespace WebVendasMVC.Services
 {
@@ -46,6 +47,28 @@ namespace WebVendasMVC.Services
             _context.SaveChanges();
 
         }
+
+        public void Updates(Vendedores obj)
+        {
+            if (!_context.Vendedores.Any(x => x.Id == obj.Id))
+            {
+                throw new NotfoundException("Id not Found");
+            }
+            try
+            {
+
+            _context.Update(obj);
+                _context.SaveChanges();
+
+            }
+            catch(DbConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
+
+        }
+
+
     }
 
 }
