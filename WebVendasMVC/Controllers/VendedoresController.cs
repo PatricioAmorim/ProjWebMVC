@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +57,7 @@ namespace WebVendasMVC.Controllers
             if(id == null)
             {
 
-                return NotFound();
+                return RedirectToAction(nameof(Error), new {message = "Id Nulo" });
 
             }
 
@@ -64,7 +65,7 @@ namespace WebVendasMVC.Controllers
 
             if(obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id Não Encontrado" });
             }
 
             return View(obj);
@@ -82,13 +83,13 @@ namespace WebVendasMVC.Controllers
         {
             if(id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não informado" });
             }
 
             var obj = _vendedorSevices.FindById(id.Value);
             if(obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" }); ;
             }
 
             return View(obj);
@@ -98,13 +99,13 @@ namespace WebVendasMVC.Controllers
         {
             if(id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não nformado" });
             }
 
             var obj = _vendedorSevices.FindById(id.Value);
             if (obj == null )
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = $"Id {0} não encontrado", id.Value });
             }
 
             List<Department> departments = _departmentService.FindAll();
@@ -118,7 +119,7 @@ namespace WebVendasMVC.Controllers
         {
             if(id != vendedorer.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = $"Id {0} nao correspondente como vendedor {1}", id, vendedorer.Name});
             }
             try
             {
@@ -126,17 +127,29 @@ namespace WebVendasMVC.Controllers
                 _vendedorSevices.Updates(vendedorer);
                 return RedirectToAction(nameof(Index));
             }
-            catch(NotfoundException)
+            catch(NotfoundException e)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-            catch (DbConcurrencyException)
+            catch (DbConcurrencyException e)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
 
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+
+                Message = message,
+                // Utilizado para pegar o id da requisição
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
 
 
+            return View(viewModel);
         }
 
     }
