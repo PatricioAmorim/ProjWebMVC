@@ -10,8 +10,11 @@ namespace WebVendasMVC.Models
     {
 
         public int Id { get; set; }
+        [Required]
+        [StringLength(50 , MinimumLength = 3, ErrorMessage ="{0} dever ter entre {2} e {1} caracteres")]
         public string Name { get; set; }
 
+        [EmailAddress(ErrorMessage = "Enter a valid email")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
@@ -22,6 +25,7 @@ namespace WebVendasMVC.Models
 
         [Display(Name = "Salário Base")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
+        [Range(100.0, 50000.0, ErrorMessage = "{0} must be from {1} to {2}")]
         public double SalarioBase { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }

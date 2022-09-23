@@ -46,7 +46,12 @@ namespace WebVendasMVC.Controllers
         [HttpPost][ValidateAntiForgeryToken]
         public IActionResult Create(Vendedores vendedores)
         {
-
+            if (!ModelState.IsValid) // validação caso o Js esteja desabilitado, valida antes de enviar ao Servidor.
+            {
+                var departments = _departmentService.FindAll();
+                var ViewModel = new VendedorFormViewModel{Vendedores = vendedores, Departments = departments};
+                return View(ViewModel);
+            }
             _vendedorSevices.InsereVendedor(vendedores);
             return RedirectToAction(nameof(Index));
 
@@ -105,7 +110,7 @@ namespace WebVendasMVC.Controllers
             var obj = _vendedorSevices.FindById(id.Value);
             if (obj == null )
             {
-                return RedirectToAction(nameof(Error), new { message = $"Id {0} não encontrado", id.Value });
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado"});
             }
 
             List<Department> departments = _departmentService.FindAll();
@@ -117,9 +122,16 @@ namespace WebVendasMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Vendedores vendedorer)
         {
-            if(id != vendedorer.Id)
+            if (!ModelState.IsValid) // validação caso o Js esteja desabilitado, valida antes de enviar ao Servidor.
             {
-                return RedirectToAction(nameof(Error), new { message = $"Id {0} nao correspondente como vendedor {1}", id, vendedorer.Name});
+                var departments = _departmentService.FindAll();
+                var ViewModel = new VendedorFormViewModel { Vendedores = vendedorer, Departments = departments };
+                return View(ViewModel);
+            }
+
+            if (id != vendedorer.Id)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id nao correspondente com o vendedor"});
             }
             try
             {
@@ -138,6 +150,8 @@ namespace WebVendasMVC.Controllers
 
         }
 
+
+        // Metodo para pegar erro para a interface ViewModel
         public IActionResult Error(string message)
         {
             var viewModel = new ErrorViewModel
