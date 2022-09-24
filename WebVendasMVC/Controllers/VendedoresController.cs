@@ -25,17 +25,17 @@ namespace WebVendasMVC.Controllers
 
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _vendedorSevices.FindAll();
+            var list = await _vendedorSevices.FindAllAsinc();
             
             return View(list);
         }
 
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var departments = _departmentService.FindAll();
+            var departments = await _departmentService.FindAllAsync();
 
             var viewModel = new VendedorFormViewModel { Departments = departments };
             
@@ -44,20 +44,20 @@ namespace WebVendasMVC.Controllers
         }
 
         [HttpPost][ValidateAntiForgeryToken]
-        public IActionResult Create(Vendedores vendedores)
+        public async Task<IActionResult> Create(Vendedores vendedores)
         {
             if (!ModelState.IsValid) // validação caso o Js esteja desabilitado, valida antes de enviar ao Servidor.
             {
-                var departments = _departmentService.FindAll();
+                var departments = await _departmentService.FindAllAsync();
                 var ViewModel = new VendedorFormViewModel{Vendedores = vendedores, Departments = departments};
                 return View(ViewModel);
             }
-            _vendedorSevices.InsereVendedor(vendedores);
+            await _vendedorSevices.InsereVendedorAsync(vendedores);
             return RedirectToAction(nameof(Index));
 
         }
 
-        public IActionResult Remove(int? id)
+        public async Task<IActionResult> Remove(int? id)
         {
             if(id == null)
             {
@@ -66,7 +66,7 @@ namespace WebVendasMVC.Controllers
 
             }
 
-            var obj = _vendedorSevices.FindById(id.Value);
+            var obj = await _vendedorSevices.FindByIdAsync(id.Value);
 
             if(obj == null)
             {
@@ -77,21 +77,21 @@ namespace WebVendasMVC.Controllers
         }
 
         [HttpPost][ValidateAntiForgeryToken]
-        public IActionResult Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            _vendedorSevices.Remover(id);
+            await _vendedorSevices.RemoverAsync(id);
 
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Detalhe(int? id)
+        public async Task<IActionResult> Detalhe(int? id)
         {
             if(id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não informado" });
             }
 
-            var obj = _vendedorSevices.FindById(id.Value);
+            var obj = await _vendedorSevices.FindByIdAsync(id.Value);
             if(obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado" }); ;
@@ -100,32 +100,32 @@ namespace WebVendasMVC.Controllers
             return View(obj);
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if(id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não nformado" });
             }
 
-            var obj = _vendedorSevices.FindById(id.Value);
+            var obj = await _vendedorSevices.FindByIdAsync(id.Value);
             if (obj == null )
             {
                 return RedirectToAction(nameof(Error), new { message = "Id não encontrado"});
             }
 
-            List<Department> departments = _departmentService.FindAll();
+            List<Department> departments = await _departmentService.FindAllAsync();
             VendedorFormViewModel viewModel = new VendedorFormViewModel() { Vendedores = obj, Departments = departments };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Vendedores vendedorer)
+        public async Task<IActionResult> EditAsync(int id, Vendedores vendedorer)
         {
             if (!ModelState.IsValid) // validação caso o Js esteja desabilitado, valida antes de enviar ao Servidor.
             {
-                var departments = _departmentService.FindAll();
-                var ViewModel = new VendedorFormViewModel { Vendedores = vendedorer, Departments = departments };
+                var departments = await _departmentService.FindAllAsync();
+                var ViewModel = new VendedorFormViewModel { Vendedores = vendedorer, Departments = departments }; // 
                 return View(ViewModel);
             }
 
@@ -136,7 +136,7 @@ namespace WebVendasMVC.Controllers
             try
             {
 
-                _vendedorSevices.Updates(vendedorer);
+                await _vendedorSevices.UpdatesAsync(vendedorer);
                 return RedirectToAction(nameof(Index));
             }
             catch(NotfoundException e)

@@ -20,45 +20,47 @@ namespace WebVendasMVC.Services
         }
 
 
-        public List<Vendedores> FindAll()
+        public async Task<List<Vendedores>> FindAllAsinc()
         {
  
-            return _context.Vendedores.ToList();
+            return await _context.Vendedores.ToListAsync();
 
         }
 
-        public void InsereVendedor(Vendedores obj)
+        public async Task InsereVendedorAsync(Vendedores obj)
         {
             _context.Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Vendedores FindById(int id)
+        public async Task<Vendedores> FindByIdAsync(int id)
         {
             // Include utilizado como Join entre as tabelas das consultas
-            return _context.Vendedores.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
+            return await _context.Vendedores.Include(obj => obj.Department).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
 
-        public void Remover(int id)
+        public async Task RemoverAsync(int id)
         {
-            var Id = _context.Vendedores.Find(id);
+            var Id = await _context.Vendedores.FindAsync(id);
             _context.Vendedores.Remove(Id);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
         }
 
-        public void Updates(Vendedores obj)
+        public async Task UpdatesAsync(Vendedores obj)
         {
-            if (!_context.Vendedores.Any(x => x.Id == obj.Id))
+
+            bool hasany = await _context.Vendedores.AnyAsync(x => x.Id == obj.Id);
+            if (!hasany)
             {
                 throw new NotfoundException("Id not Found");
             }
             try
             {
 
-            _context.Update(obj);
-                _context.SaveChanges();
+                _context.Update(obj);
+                await _context.SaveChangesAsync();
 
             }
             catch(DbConcurrencyException e)
