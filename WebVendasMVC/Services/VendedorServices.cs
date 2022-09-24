@@ -42,10 +42,19 @@ namespace WebVendasMVC.Services
 
         public async Task RemoverAsync(int id)
         {
+
+            try
+            {
+
             var Id = await _context.Vendedores.FindAsync(id);
             _context.Vendedores.Remove(Id);
             await _context.SaveChangesAsync();
 
+            }
+            catch(DbUpdateException e)
+            {
+                throw new IntegrityException(e.Message);
+            }
         }
 
         public async Task UpdatesAsync(Vendedores obj)

@@ -79,9 +79,17 @@ namespace WebVendasMVC.Controllers
         [HttpPost][ValidateAntiForgeryToken]
         public async Task<IActionResult> Remove(int id)
         {
-            await _vendedorSevices.RemoverAsync(id);
+            try
+            {
 
-            return RedirectToAction(nameof(Index));
+                await _vendedorSevices.RemoverAsync(id);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
         }
 
         public async Task<IActionResult> Detalhe(int? id)
@@ -94,7 +102,7 @@ namespace WebVendasMVC.Controllers
             var obj = await _vendedorSevices.FindByIdAsync(id.Value);
             if(obj == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" }); ;
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             return View(obj);
