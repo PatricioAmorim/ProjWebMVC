@@ -49,6 +49,8 @@ namespace WebVendasMVC
             services.AddScoped<VendedorServices>();
 
             services.AddScoped<DepartmentService>();
+            services.AddScoped<VendasService>();
+
 
         }
 
