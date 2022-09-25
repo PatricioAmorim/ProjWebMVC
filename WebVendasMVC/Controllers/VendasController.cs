@@ -25,13 +25,38 @@ namespace WebVendasMVC.Controllers
 
         public async Task<IActionResult> BuscaSimples(DateTime? IniDate, DateTime? FimDate)
         {
+            if (!IniDate.HasValue)
+            {
+                IniDate = new DateTime(DateTime.Now.Year, 1, 1);
+            }
+            if (!IniDate.HasValue)
+            {
+                FimDate = DateTime.Now;
+            }
+
+            ViewData["IniDate"] = IniDate.Value.ToString("yyyy-MM-dd");
+            ViewData["FimDate"] = IniDate.Value.ToString("yyyy-MM-dd");
+
             var result = await _VendasService.FindByDateAsync(IniDate,FimDate);
             return View(result);
         }
 
-        public IActionResult BuscaAgrupada()
+        public async Task<IActionResult> BuscaAgrupada(DateTime? IniDate, DateTime? FimDate)
         {
-            return View();
+            if (!IniDate.HasValue)
+            {
+                IniDate = new DateTime(DateTime.Today.Year , 1, 1);
+            }
+            if (!IniDate.HasValue)
+            {
+                FimDate = DateTime.Now;
+            }
+
+            ViewData["IniDate"] = IniDate.Value.ToString("yyyy-MM-dd");
+            ViewData["FimDate"] = IniDate.Value.ToString("yyyy-MM-dd");
+
+            var result = await _VendasService.FindByDateGroupingAsync(IniDate, FimDate);
+            return View(result);
         }
 
     }

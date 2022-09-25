@@ -39,6 +39,27 @@ namespace WebVendasMVC.Services
         }
 
 
+        public async Task<List<IGrouping<Department,Vendas>>> FindByDateGroupingAsync(DateTime? IniDate, DateTime? FimDate)
+        {
+
+            var result = from obj in _context.Vendas select obj;
+            if (IniDate.HasValue)
+            {
+                result = result.Where(x => x.Data_Venda >= IniDate.Value);
+            }
+            if (FimDate.HasValue)
+            {
+                result = result.Where(x => x.Data_Venda <= FimDate.Value);
+            }
+
+            return await result
+                    .Include(x => x.Vendedores)
+                    .Include(x => x.Vendedores.Department)
+                    .OrderByDescending(x => x.Data_Venda)
+                    .GroupBy(x => x.Vendedores.Department)
+                    .ToListAsync();
+        }
+
     }
 
 }
